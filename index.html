@@ -178,6 +178,17 @@ p{
   }
 }
 
+.product-nav.moving .product-btn{
+  transform: translateX(-100px);
+  transition: transform 1s cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* за горния (обратна посока) */
+.product-nav-top.moving .product-btn{
+  transform: translateX(100px);
+}
+
+
 
 </style>
 </head>
@@ -371,49 +382,30 @@ p{
 </main>
 
 <script>
-const nav = document.querySelector(".product-nav");
-const sections = document.querySelectorAll(".product");
-const backBtns = document.querySelectorAll(".back");
-
-function bindButtons(){
-  document.querySelectorAll(".product-btn").forEach(btn=>{
-    btn.onclick = () => {
-      sections.forEach(s=>s.classList.remove("active"));
-      const target = document.getElementById(btn.dataset.id);
-      target.classList.add("active");
-      target.scrollIntoView({ behavior:"smooth", block:"start" });
-    };
-  });
-}
-
-bindButtons();
-
-backBtns.forEach(btn=>{
-  btn.onclick = () => {
-    sections.forEach(s=>s.classList.remove("active"));
-    document.getElementById("home").scrollIntoView({ behavior:"smooth", block:"start" });
-  };
-});
-
-const step = 100; // 90px бутон + 10px gap
-let isMoving = false;
-
 const navs = document.querySelectorAll(".product-nav");
 
 setInterval(()=>{
   navs.forEach((nav, index)=>{
-    if(index === 0){
-      // горния карусел → обратно
-      nav.insertBefore(nav.lastElementChild, nav.firstElementChild);
-    }else{
-      // долния карусел → нормално
-      nav.appendChild(nav.firstElementChild);
-    }
+
+    // старт на анимацията (ease-out = тръгва бързо, спира бавно)
+    nav.classList.add("moving");
+
+    setTimeout(()=>{
+
+      if(index === 0){
+        // горен → обратно (надясно)
+        nav.insertBefore(nav.lastElementChild, nav.firstElementChild);
+      }else{
+        // долен → нормално (наляво)
+        nav.appendChild(nav.firstElementChild);
+      }
+
+      nav.classList.remove("moving");
+
+    }, 1000); // трябва да съвпада с CSS времето
+
   });
 }, 3000);
-
-
 </script>
-
 </body>
 </html>
