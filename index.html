@@ -14,7 +14,6 @@ body{
   color:#173d24;
 }
 
-/* HERO */
 .hero{
   min-height:100vh;
   background-image:url("images/tarratorium.webp");
@@ -26,7 +25,9 @@ body{
   justify-content:center;
   padding:20px;
   position:relative;
+  overflow:hidden;
 }
+
 .hero::after{
   content:"";
   position:absolute;
@@ -35,43 +36,38 @@ body{
   pointer-events:none;
 }
 
-/* NAV */
 .product-nav{
   position:relative;
   z-index:2;
   display:flex;
   gap:10px;
+  width:min(90vw,720px);
   overflow:hidden;
-  background:rgba(255,255,255,0.6);
+  background:rgba(255,255,255,0.45);
   padding:10px;
-  border-radius:16px;
-  backdrop-filter:blur(12px);
+  border-radius:18px;
+  backdrop-filter:blur(14px);
 }
+
 .product-btn{
   border:none;
-  background:white;
-  border-radius:12px;
-  padding:6px;
+  background:transparent;
+  border-radius:16px;
+  padding:0;
+  width:90px;
   min-width:90px;
+  flex:0 0 90px;
   cursor:pointer;
-  box-shadow:0 4px 12px rgba(0,0,0,.2);
 }
-
 .product-btn img{
-  width:70px;
-  height:90px;
+  width:90px;
+  height:110px;
   object-fit:cover;
-  border-radius:8px;
-}
-
-.product-btn span{
+  border-radius:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,.28);
   display:block;
-  font-size:11px;
-  font-weight:700;
-  margin-top:4px;
 }
 
-/* SECTIONS */
 .product{
   display:none;
   min-height:100vh;
@@ -119,6 +115,19 @@ p{
 }
 
 @media(max-width:800px){
+  .hero{
+    padding:0;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center top;
+  }
+
+  .product-nav{
+    width:100vw;
+    border-radius:0;
+    padding:10px;
+  }
+
   .product{
     padding:0 0 40px;
   }
@@ -141,16 +150,6 @@ p{
     font-size:34px;
   }
 }
-
-@media(max-width:800px){
-  .hero{
-    background-size:contain;
-    background-repeat:no-repeat;
-    background-position:center top;
-  }
-}
-
-
 </style>
 </head>
 
@@ -170,6 +169,7 @@ p{
     <button class="product-btn" data-id="beet">
       <img src="images/beet.webp">
     </button>
+
     <button class="product-btn" data-id="protein">
       <img src="images/protein.webp">
     </button>
@@ -316,45 +316,37 @@ p{
 </main>
 
 <script>
-const buttons = document.querySelectorAll(".product-btn");
+const nav = document.querySelector(".product-nav");
 const sections = document.querySelectorAll(".product");
 const backBtns = document.querySelectorAll(".back");
 
-buttons.forEach(btn=>{
-  btn.onclick = () => {
-    sections.forEach(s=>s.classList.remove("active"));
+function bindButtons(){
+  document.querySelectorAll(".product-btn").forEach(btn=>{
+    btn.onclick = () => {
+      sections.forEach(s=>s.classList.remove("active"));
+      const target = document.getElementById(btn.dataset.id);
+      target.classList.add("active");
+      target.scrollIntoView({ behavior:"smooth", block:"start" });
+    };
+  });
+}
 
-    const target = document.getElementById(btn.dataset.id);
-    target.classList.add("active");
-
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-});
+bindButtons();
 
 backBtns.forEach(btn=>{
   btn.onclick = () => {
     sections.forEach(s=>s.classList.remove("active"));
-    document.getElementById("home").scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById("home").scrollIntoView({ behavior:"smooth", block:"start" });
   };
 });
-</script>
-
-<script>
-const nav = document.querySelector(".product-nav");
-
-let scrollAmount = 0;
 
 setInterval(()=>{
-  scrollAmount += 90; // ширина на бутон + gap
+  nav.classList.add("sliding");
 
-  if(scrollAmount >= nav.scrollWidth - nav.clientWidth){
-    scrollAmount = 0;
-  }
-
-  nav.scrollTo({
-    left: scrollAmount,
-    behavior: "smooth"
-  });
+  setTimeout(()=>{
+    nav.appendChild(nav.firstElementChild);
+    nav.classList.remove("sliding");
+  }, 550);
 
 }, 3000);
 </script>
