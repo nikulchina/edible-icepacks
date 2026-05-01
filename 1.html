@@ -34,7 +34,6 @@ body{
   background:linear-gradient(to top,rgba(0,0,0,.35),rgba(0,0,0,0));
   pointer-events:none;
 }
-
 /* NAV */
 .product-nav{
   position:relative;
@@ -109,6 +108,16 @@ p{
   margin-bottom:15px;
 }
 
+.tag{
+  display:inline-block;
+  background:#173d24;
+  color:#fff;
+  padding:8px 14px;
+  border-radius:999px;
+  font-weight:700;
+  margin-right:6px;
+}
+
 .back{
   margin-top:20px;
   padding:10px 16px;
@@ -120,36 +129,19 @@ p{
 }
 
 @media(max-width:800px){
-  .product{
-    padding:0 0 40px;
-  }
-
-  .wrap{
-    grid-template-columns:1fr;
-    gap:20px;
-  }
-
-  .wrap img{
-    margin:0 !important;
-    border-radius:0;
-  }
-
-  .wrap > div{
-    padding:0 20px;
-  }
-
-  h2{
-    font-size:34px;
-  }
+  .wrap{grid-template-columns:1fr}
+  h2{font-size:34px}
 }
 </style>
 </head>
 
 <body>
 
+<!-- HERO -->
 <section class="hero" id="home">
   <div class="product-nav">
 
+    <!-- ONE BUTTON TEMPLATE -->
     <button class="product-btn" data-id="tarratorium">
       <img src="images/tarratorium.webp"><span>Tarratorium</span>
     </button>
@@ -193,6 +185,7 @@ p{
   </div>
 </section>
 
+<!-- PRODUCTS -->
 <main>
 
 <section class="product" id="tarratorium">
@@ -201,7 +194,8 @@ p{
     <div>
       <h2>Tarratorium</h2>
       <p>Cucumber, yogurt, dill, garlic, walnut & olive oil.</p>
-      <button class="back">Home</button>
+      <span class="tag">Frozen</span>
+      <button class="back">Back</button>
     </div>
   </div>
 </section>
@@ -212,7 +206,8 @@ p{
     <div>
       <h2>Gazpacho</h2>
       <p>Tomato, cucumber, pepper, garlic, olive oil.</p>
-      <button class="back">Home</button>
+      <span class="tag">Frozen</span>
+      <button class="back">Back</button>
     </div>
   </div>
 </section>
@@ -223,7 +218,8 @@ p{
     <div>
       <h2>Beet Boost</h2>
       <p>Beetroot, carrot, walnut & olive oil.</p>
-      <button class="back">Home</button>
+      <span class="tag">Frozen</span>
+      <button class="back">Back</button>
     </div>
   </div>
 </section>
@@ -234,7 +230,8 @@ p{
     <div>
       <h2>Protein</h2>
       <p>Veggies + pea protein + olive oil.</p>
-      <button class="back">Home</button>
+      <span class="tag">Frozen</span>
+      <button class="back">Back</button>
     </div>
   </div>
 </section>
@@ -245,7 +242,8 @@ p{
     <div>
       <h2>Electrolyte</h2>
       <p>Tomato, celery, lemon, salt.</p>
-      <button class="back">Home</button>
+      <span class="tag">Frozen</span>
+      <button class="back">Back</button>
     </div>
   </div>
 </section>
@@ -256,7 +254,8 @@ p{
     <div>
       <h2>Zucchini Zen</h2>
       <p>Zucchini, lemon, basil.</p>
-      <button class="back">Home</button>
+      <span class="tag">Frozen</span>
+      <button class="back">Back</button>
     </div>
   </div>
 </section>
@@ -267,7 +266,8 @@ p{
     <div>
       <h2>Corny Power</h2>
       <p>Corn, potato, onion.</p>
-      <button class="back">Home</button>
+      <span class="tag">Frozen</span>
+      <button class="back">Back</button>
     </div>
   </div>
 </section>
@@ -278,7 +278,8 @@ p{
     <div>
       <h2>Lentillisimo</h2>
       <p>Lentils, carrot, tomato.</p>
-      <button class="back">Home</button>
+      <span class="tag">Frozen</span>
+      <button class="back">Back</button>
     </div>
   </div>
 </section>
@@ -289,7 +290,8 @@ p{
     <div>
       <h2>Patatan</h2>
       <p>Potato, onion, garlic.</p>
-      <button class="back">Home</button>
+      <span class="tag">Frozen</span>
+      <button class="back">Back</button>
     </div>
   </div>
 </section>
@@ -300,7 +302,8 @@ p{
     <div>
       <h2>Quatro Fungi</h2>
       <p>Mixed mushrooms, herbs.</p>
-      <button class="back">Home</button>
+      <span class="tag">Frozen</span>
+      <button class="back">Back</button>
     </div>
   </div>
 </section>
@@ -315,19 +318,16 @@ const backBtns = document.querySelectorAll(".back");
 buttons.forEach(btn=>{
   btn.onclick = () => {
     sections.forEach(s=>s.classList.remove("active"));
-
-    const target = document.getElementById(btn.dataset.id);
-    target.classList.add("active");
-
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+    document.getElementById(btn.dataset.id).classList.add("active");
+    window.scrollTo(0,0);
+  }
 });
 
 backBtns.forEach(btn=>{
   btn.onclick = () => {
     sections.forEach(s=>s.classList.remove("active"));
-    document.getElementById("home").scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+    window.scrollTo(0,0);
+  }
 });
 </script>
 
