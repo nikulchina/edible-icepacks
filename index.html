@@ -407,5 +407,21 @@ setInterval(()=>{
   });
 }, 3000);
 </script>
+
+<script>
+document.querySelectorAll(".product-btn").forEach(btn=>{
+  btn.onclick = () => {
+    const target = document.getElementById(btn.dataset.id);
+    if(!target) return;
+
+    document.querySelectorAll(".product").forEach(s=>{
+      s.classList.remove("active");
+    });
+
+    target.classList.add("active");
+    target.scrollIntoView({ behavior:"smooth", block:"start" });
+  };
+});
+</script>
 </body>
 </html>
