@@ -150,6 +150,11 @@ p{
     font-size:34px;
   }
 }
+
+.product-nav.moving .product-btn{
+  transform: translateX(-100px);
+  transition: transform 1s cubic-bezier(0, 0, 0.2, 1);
+}
 </style>
 </head>
 
@@ -340,13 +345,16 @@ backBtns.forEach(btn=>{
   };
 });
 
+const step = 100; // 90px бутон + 10px gap
+let isMoving = false;
+
 setInterval(()=>{
-  nav.classList.add("sliding");
+  nav.classList.add("moving");
 
   setTimeout(()=>{
     nav.appendChild(nav.firstElementChild);
-    nav.classList.remove("sliding");
-  }, 550);
+    nav.classList.remove("moving");
+  }, 1000);
 
 }, 3000);
 </script>
