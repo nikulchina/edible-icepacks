@@ -317,24 +317,19 @@ const backBtns = document.querySelectorAll(".back");
 
 buttons.forEach(btn=>{
   btn.onclick = () => {
-
-    const target = document.getElementById(btn.dataset.id);
-
-    // показва секцията
     sections.forEach(s=>s.classList.remove("active"));
-    target.classList.add("active");
-
-    // скролва до нея
-    target.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(btn.dataset.id).classList.add("active");
+    window.scrollTo(0,0);
   }
 });
 
 backBtns.forEach(btn=>{
   btn.onclick = () => {
     sections.forEach(s=>s.classList.remove("active"));
-    document.getElementById("home").scrollIntoView({ behavior: "smooth" });
+    window.scrollTo(0,0);
   }
 });
 </script>
+
 </body>
 </html>
